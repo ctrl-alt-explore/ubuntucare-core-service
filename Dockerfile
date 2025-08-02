@@ -1,5 +1,5 @@
 # Multi-stage build optimized for cloud deployment
-FROM openjdk:21-jdk-slim as build
+FROM openjdk:21-jdk-slim AS build
 
 # Install Maven
 RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
@@ -17,7 +17,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Runtime stage - optimized for cloud
-FROM openjdk:21-jre-slim
+FROM openjdk:21-slim
 
 # Install curl for health checks
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
